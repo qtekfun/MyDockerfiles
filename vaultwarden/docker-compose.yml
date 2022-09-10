@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden_app
+    restart: always
+    environment:
+      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
+      #- SIGNUPS_ALLOWED=true
+      - SIGNUPS_ALLOWED=false
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
+    volumes:
+      - ./vw-data/:/data/
+    ports:
+      - "2314:80"
