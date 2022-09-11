@@ -8,7 +8,7 @@ services:
       - '81:81'
       - '443:443'
     volumes:
-      - ./config.json:/app/config/production.json
+      #- ./config.json:/app/config/production.json
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
     environment:
@@ -17,10 +17,12 @@ services:
       DB_MYSQL_USER: ${DB_USER}
       DB_MYSQL_PASSWORD: ${DB_PASSWORD} 
       DB_MYSQL_NAME: ${DB_NAME}
+      PGID: 1000
+      PUID: 1000
     depends_on:
       - db
   db:
-    image: 'jc21/mariadb-aria:10.4.15'
+    image: 'jc21/mariadb-aria:latest'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
@@ -29,3 +31,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./data/mysql:/var/lib/mysql
+networks:
+  default:
+    external:
+      name: npm-ntwrk
