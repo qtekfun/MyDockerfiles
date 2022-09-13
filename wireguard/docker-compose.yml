@@ -19,7 +19,7 @@ services:
       - ALLOWEDIPS=0.0.0.0/0 #optional
       - LOG_CONFS=true #optional
     volumes:
-      - /path/to/appdata/config:/config
+      - ./config:/config
       - /lib/modules:/lib/modules
     ports:
       - 51820:51820/udp
