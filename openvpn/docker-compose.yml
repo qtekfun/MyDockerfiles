@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2'
 services:
   openvpn:
     cap_add:
@@ -9,5 +9,5 @@ services:
       - 1194:1194/udp
     restart: always
     volumes:
-      - ./config:/etc/openvpn
+      - ./openvpn-data/conf:/etc/openvpn
 
