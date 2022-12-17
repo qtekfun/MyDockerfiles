@@ -13,3 +13,5 @@ services:
       - ./portainer-data:/data
     ports:
       - 9000:9000
+    labels:
+      - com.centurylinklabs.watchtower.enable=true

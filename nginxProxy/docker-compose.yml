@@ -22,6 +22,9 @@ services:
       PUID: 1000
     depends_on:
       - db
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
   db:
     image: 'jc21/mariadb-aria:latest'
     container_name: npm_db
@@ -33,6 +36,9 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./data/mysql:/var/lib/mysql
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
 networks:
   default:
     external:

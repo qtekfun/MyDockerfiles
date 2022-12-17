@@ -14,3 +14,5 @@ services:
       - ./vw-data/:/data/
     ports:
       - "2314:80"
+    labels:
+      - com.centurylinklabs.watchtower.enable=true

@@ -16,6 +16,8 @@ services:
       - PGID=1000
       - PUID=1000
       - TZ=Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
   app:
     container_name: nextcloud_app
@@ -32,6 +34,8 @@ services:
       - PGID=1000
       - PUID=1000
       - TZ=Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
 networks:
   default:

@@ -10,4 +10,5 @@ services:
     restart: always
     volumes:
       - ./openvpn-data/conf:/etc/openvpn
-
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
