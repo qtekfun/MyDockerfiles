@@ -1,0 +1,44 @@
+---
+version: '3'
+
+services:
+  db:
+    container_name: nxtc_fotos_mariadb
+    image: lscr.io/linuxserver/mariadb:latest
+    restart: always
+    volumes:
+      - ./data/mariadb/config:/config
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - MYSQL_PASSWORD=${DB_USER_PASS}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  app:
+    container_name: nxtc_fotos_app
+    image: lscr.io/linuxserver/nextcloud:latest
+    restart: always
+    ports:
+      - "4444:443"
+    links:
+      - db
+    volumes:
+      - ./data/nextcloud/config:/config
+      - ./data/fotos:/data
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+networks:
+  default:
+    external:
+      name: nxtc-fotos-ntwrk
+    
