@@ -7,7 +7,7 @@ services:
     image: lscr.io/linuxserver/mariadb:latest
     restart: always
     volumes:
-      - ./mariadb/config:/config
+      - ./data/mariadb/config:/config
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
       - MYSQL_PASSWORD=${DB_USER_PASS}
@@ -28,8 +28,8 @@ services:
     links:
       - db
     volumes:
-      - ./nextcloud/config:/config
-      - ./nextcloud/data:/data
+      - ./data/nextcloud/config:/config
+      - ./data/nextcloud/data:/data
     environment:
       - PGID=1000
       - PUID=1000
