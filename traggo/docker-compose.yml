@@ -6,7 +6,7 @@ services:
     ports:
       - 53030:3030
     volumes:
-      - ./traggodata:/opt/traggo/data
+      - ./data:/opt/traggo/data
     environment:
       - PGID=1000
       - PUID=1000
