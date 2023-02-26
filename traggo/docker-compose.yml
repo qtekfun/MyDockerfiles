@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  traggo:
+    image: traggo/server:latest
+    container_name: traggo
+    ports:
+      - 53030:3030
+    volumes:
+      - ./traggodata:/opt/traggo/data
+    environment:
+      - PGID=1000
+      - PUID=1000
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    restart: always
