@@ -16,3 +16,6 @@ data
 # ignore config folders
 */config
 */library
+
+# ignore excludefile
+exclude-file.txt
