@@ -1,0 +1,17 @@
+---
+version: '3.8'
+
+services:
+  onedev:
+    image: 1dev/server
+    ports:
+      - "56610:6610"
+      - "56611:6611"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./onedev:/opt/onedev
+    environment:
+      - PGID=1000
+      - PUID=1000
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
