@@ -1,0 +1,65 @@
+---
+version: '3'
+
+services:
+  db:
+    container_name: vikunja-ddbb
+    image: mariadb:10
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DDBB_ROOT_PASSWORD}
+      MYSQL_USER: ${DDBB_USER}
+      MYSQL_PASSWORD: ${DDBB_PASSWORD}
+      MYSQL_DATABASE: ${DDBB_NAME}
+      PGID: 1000
+      PUID: 1000
+      TZ: Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - vijunka_ntwrk
+    restart: unless-stopped
+  api:
+    container_name: vikunja-api
+    image: vikunja/api
+    environment:
+      VIKUNJA_DATABASE_HOST: db
+      VIKUNJA_DATABASE_PASSWORD: ${DDBB_PASSWORD}
+      VIKUNJA_DATABASE_TYPE: mysql
+      VIKUNJA_DATABASE_USER: ${DDBB_USER}
+      VIKUNJA_DATABASE_DATABASE: ${DDBB_NAME}
+      VIKUNJA_SERVICE_JWT_SECRET: ${JWT_SECRET}
+      VIKUNJA_SERVICE_FRONTEND_URL: ${FRONTEND_URL}
+      PGID: 1000
+      PUID: 1000
+      TZ: Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    ports:
+      - 3456:3456
+    volumes:
+      - ./files:/app/vikunja/files
+    networks:
+      - vijunka_ntwrk
+    depends_on:
+      - db
+    restart: unless-stopped
+  frontend:
+    container_name: vikunja-frontend
+    image: vikunja/frontend
+    ports:
+      - 2315:80
+    environment:
+      API_URL: ${API_URL}
+      PGID: 1000
+      PUID: 1000
+      TZ: Europe/Madrid
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - vijunka_ntwrk
+    restart: unless-stopped
+networks:
+  vijunka_ntwrk:
