@@ -52,7 +52,7 @@ services:
     ports:
       - 2315:80
     environment:
-      API_URL: ${API_URL}
+      VIKUNJA_API_URL: ${API_URL} 
       PGID: 1000
       PUID: 1000
       TZ: Europe/Madrid
